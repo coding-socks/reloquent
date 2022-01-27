@@ -10,7 +10,9 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
+        "illuminate/contracts": "^8.0",
         "illuminate/database": "^8.0",
+        "illuminate/pagination": "^8.0",
         "illuminate/support": "^8.0",
         "robinvdvleuten/ulid": "^5.0"
     },
