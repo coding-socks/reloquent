@@ -56,6 +56,6 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "illuminate/support:${{ matrix.laravel }}" "illuminate/database:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }}  --prefer-dist --no-interaction --no-suggest
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
