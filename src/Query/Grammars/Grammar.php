@@ -147,11 +147,14 @@ class Grammar extends BaseGrammar
 
     protected function compileBoolean($boolean)
     {
-        return match ($boolean) {
-            'and' => '',
-            'or' => '|',
-            default => throw new LogicException("Unknown boolean {$boolean}"),
-        };
+        switch ($boolean) {
+            case 'and':
+                return '';
+            case 'or':
+                return '|';
+            default:
+                return throw new LogicException("Unknown boolean {$boolean}");
+        }
     }
 
     /**
@@ -191,10 +194,13 @@ class Grammar extends BaseGrammar
         $operator = $where['operator'];
         $value = $where['value'];
 
-        return match ($operator) {
-            'contain', 'contains' => $this->wrap($column) . ':{' . $this->wrapValue($value) . '}',
-            default => throw new LogicException("Unknown operator {$operator}"),
-        };
+        switch ($operator) {
+            case 'contain':
+            case 'contains':
+                return $this->wrap($column) . ':{' . $this->wrapValue($value) . '}';
+            default:
+                return throw new LogicException("Unknown operator {$operator}");
+        }
     }
 
     /**
@@ -233,15 +239,22 @@ class Grammar extends BaseGrammar
         $operator = $where['operator'];
         $value = $where['value'];
 
-        return match ($operator) {
-            '=' => $this->whereBetween($query, array_merge($where, ['values' => [$value, $value]])),
-            '!=' => '-' . $this->whereBetween($query, array_merge($where, ['values' => [$value, $value]])),
-            '>' => $this->whereBetween($query, array_merge($where, ['values' => ['(' . $value, INF]])),
-            '>=' => $this->whereBetween($query, array_merge($where, ['values' => [$value, INF]])),
-            '<' => $this->whereBetween($query, array_merge($where, ['values' => [-INF, '(' . $value]])),
-            '<=' => $this->whereBetween($query, array_merge($where, ['values' => [-INF, $value]])),
-            default => throw new LogicException("Unknown operator {$operator}"),
-        };
+        switch ($operator) {
+            case '=':
+                return $this->whereBetween($query, array_merge($where, ['values' => [$value, $value]]));
+            case '!=':
+                return '-' . $this->whereBetween($query, array_merge($where, ['values' => [$value, $value]]));
+            case '>':
+                return $this->whereBetween($query, array_merge($where, ['values' => ['(' . $value, INF]]));
+            case '>=':
+                return $this->whereBetween($query, array_merge($where, ['values' => [$value, INF]]));
+            case '<':
+                return $this->whereBetween($query, array_merge($where, ['values' => [-INF, '(' . $value]]));
+            case '<=':
+                return $this->whereBetween($query, array_merge($where, ['values' => [-INF, $value]]));
+            default:
+                return throw new LogicException("Unknown operator {$operator}");
+        }
     }
 
     /**
@@ -273,11 +286,15 @@ class Grammar extends BaseGrammar
         $operator = $where['operator'];
         $value = $where['value'];
 
-        return match ($operator) {
-            '=' => $this->wrap($column) . ':{' . $this->wrapValue($value) . '}',
-            '!=', '<>' => '-' . $this->wrap($column) . ':{' . $this->wrapValue($value) . '}',
-            default => throw new LogicException("Unknown boolean operator {$operator}"),
-        };
+        switch ($operator) {
+            case '=':
+                return $this->wrap($column) . ':{' . $this->wrapValue($value) . '}';
+            case '!=':
+            case '<>':
+                return '-' . $this->wrap($column) . ':{' . $this->wrapValue($value) . '}';
+            default:
+                return throw new LogicException("Unknown boolean operator {$operator}");
+        }
     }
 
     /**
@@ -293,11 +310,16 @@ class Grammar extends BaseGrammar
         $operator = $where['operator'];
         $value = $where['value'];
 
-        return match ($operator) {
-            'match', 'matches' => $this->wrap($column) . ':\'' . $this->wrapValue($value) . '\'',
-            'match exactly', 'matches exactly' => $this->wrap($column) . ':"' . $this->wrapValue($value) . '"',
-            default => throw new LogicException("Unknown operator {$operator}"),
-        };
+        switch ($operator) {
+            case 'match':
+            case 'matches':
+                return $this->wrap($column) . ':\'' . $this->wrapValue($value) . '\'';
+            case 'match exactly':
+            case 'matches exactly':
+                return $this->wrap($column) . ':"' . $this->wrapValue($value) . '"';
+            default:
+                return throw new LogicException("Unknown operator {$operator}");
+        }
     }
 
     /**

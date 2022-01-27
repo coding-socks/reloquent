@@ -55,11 +55,17 @@ class HashGrammar extends Grammar
             $id = $query->newId();
             $segment = ["HSET", "{$table}:{$id}"];
             foreach ($record as $field => $value) {
-                match ($query->schema[$field]['type']) {
-                    'number' => array_push($segment, $field, (float) $value),
-                    'bool' => array_push($segment, $field, (int) (bool) $value),
-                    default => array_push($segment, $field, (string) $value),
-                };
+                switch ($query->schema[$field]['type']) {
+                    case 'number':
+                        array_push($segment, $field, (float)$value);
+                        break;
+                    case 'bool':
+                        array_push($segment, $field, (int)(bool)$value);
+                        break;
+                    default:
+                        array_push($segment, $field, (string)$value);
+                        break;
+                }
             }
             $cmd[] = $segment;
         }
