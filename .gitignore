@@ -1,0 +1,8 @@
+/vendor
+.DS_Store
+Thumbs.db
+/.idea
+/.vscode
+.phpunit.result.cache
+composer.lock
+/build
