@@ -10,10 +10,10 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "illuminate/contracts": "^8.0",
-        "illuminate/database": "^8.0",
-        "illuminate/pagination": "^8.0",
-        "illuminate/support": "^8.0",
+        "illuminate/contracts": "^8.68",
+        "illuminate/database": "^8.68",
+        "illuminate/pagination": "^8.68",
+        "illuminate/support": "^8.68",
         "robinvdvleuten/ulid": "^5.0"
     },
     "require-dev": {
