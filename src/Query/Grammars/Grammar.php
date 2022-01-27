@@ -153,7 +153,7 @@ class Grammar extends BaseGrammar
             case 'or':
                 return '|';
             default:
-                return throw new LogicException("Unknown boolean {$boolean}");
+                throw new LogicException("Unknown boolean {$boolean}");
         }
     }
 
@@ -199,7 +199,7 @@ class Grammar extends BaseGrammar
             case 'contains':
                 return $this->wrap($column) . ':{' . $this->wrapValue($value) . '}';
             default:
-                return throw new LogicException("Unknown operator {$operator}");
+                throw new LogicException("Unknown operator {$operator}");
         }
     }
 
@@ -253,7 +253,7 @@ class Grammar extends BaseGrammar
             case '<=':
                 return $this->whereBetween($query, array_merge($where, ['values' => [-INF, $value]]));
             default:
-                return throw new LogicException("Unknown operator {$operator}");
+                throw new LogicException("Unknown operator {$operator}");
         }
     }
 
@@ -293,7 +293,7 @@ class Grammar extends BaseGrammar
             case '<>':
                 return '-' . $this->wrap($column) . ':{' . $this->wrapValue($value) . '}';
             default:
-                return throw new LogicException("Unknown boolean operator {$operator}");
+                throw new LogicException("Unknown boolean operator {$operator}");
         }
     }
 
@@ -318,7 +318,7 @@ class Grammar extends BaseGrammar
             case 'matches exactly':
                 return $this->wrap($column) . ':"' . $this->wrapValue($value) . '"';
             default:
-                return throw new LogicException("Unknown operator {$operator}");
+                throw new LogicException("Unknown operator {$operator}");
         }
     }
 
